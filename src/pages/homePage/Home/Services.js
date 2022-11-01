@@ -8,7 +8,7 @@ const Services = () => {
             .then(res => res.json())
             .then(data => setservices(data));
     }, [])
-    console.log(services)
+    // console.log(services)
     return (
         <div className='grid gap-5 sm:grid-cols-2 md:grid-cols-3 my-16'>
             {

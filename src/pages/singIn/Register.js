@@ -3,6 +3,7 @@ import img from '../../assets/images/login/login.svg';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedinIn } from 'react-icons/fa';
 import { TfiFacebook } from 'react-icons/tfi';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     return (
@@ -43,7 +44,7 @@ const Register = () => {
                         <button className='rounded-full inline-block p-3 bg-slate-200 m-2'> <FaLinkedinIn className='text-center h-6 w-6' /> </button>
                         <button className='rounded-full inline-block p-3 bg-slate-200 m-2 text-blue-800'> <TfiFacebook className='text-center h-6 w-6' /> </button>
                     </div>
-                    <p className='text-center'>Already Have an accout?<a href="/" className="text-orange-600 font-semibold link link-hover" > Forgot password?</a></p>
+                    <p className='text-center'>Already Have an accout?<Link to={'/login'} className="text-orange-600 font-semibold link link-hover" > LogIn</Link></p>
                 </div>
             </div>
         </div>
