@@ -3,12 +3,15 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedinIn } from 'react-icons/fa';
 import { TfiFacebook } from 'react-icons/tfi';
 import img from '../../assets/images/login/login.svg';
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../shared/context/AuthProvider';
 
 const LogIn = () => {
-    const { user, googleSignIn } = useContext(AuthContext);
-    console.log(user)
+    const { googleSignIn } = useContext(AuthContext);
+    // console.log(user)
+    const location = useLocation();
+    const navigate = useNavigate();
+    let from = location.state?.from?.pathname || '/';
     const handleLogIn = (e) => {
         e.preventDefault()
         const form = e.target;
@@ -21,6 +24,7 @@ const LogIn = () => {
         googleSignIn()
             .then(res => {
                 console.log(res.user)
+                navigate(from, { replace: true })
             })
             .catch(err => {
                 console.log(err)
