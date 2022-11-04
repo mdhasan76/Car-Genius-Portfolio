@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ImCross } from "react-icons/im"
 
-const OrderItem = ({ data }) => {
+const OrderItem = ({ data, handleUpdate }) => {
     // console.log(data)
     const [orderData, setOrderData] = useState({});
-    const { serviceName, number, price, customer, service } = data;
+    const { serviceName, number, price, customer, service, status, _id } = data;
 
 
     useEffect(() => {
@@ -66,7 +66,7 @@ const OrderItem = ({ data }) => {
                 </td>
                 <td>Red</td>
                 <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
+                    <button onClick={() => handleUpdate(_id)} className="btn btn-ghost btn-xs">{status ? status : "pending"}</button>
                 </th>
             </tr>
         </tbody>

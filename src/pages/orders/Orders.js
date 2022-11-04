@@ -15,6 +15,28 @@ const Orders = () => {
                 // console.log(data)
             })
     }, [user?.email])
+
+    const handleUpdate = (id) => {
+        fetch(`http://localhost:5000/orders/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ status: 'aproved' })
+        })
+
+            .then(res => res.json())
+            .then(data => {
+                if (data.matchedCount > 0) {
+                    const remaining = order.filter(ord => ord._id !== id);
+                    const approvied = order.find(ord => ord._id === id);
+                    approvied.status = "approved";
+                    const newOrders = [approvied, ...remaining];
+                    setOrder(newOrders)
+                }
+
+            })
+    }
     return (
         <div className="overflow-x-auto w-full">
             <table className="table w-full">
@@ -32,7 +54,7 @@ const Orders = () => {
                     </tr>
                 </thead>
                 {
-                    order.map(ord => <OrderItem key={ord._id} data={ord} />)
+                    order.map(ord => <OrderItem key={ord._id} handleUpdate={handleUpdate} data={ord} />)
                 }
 
             </table>
