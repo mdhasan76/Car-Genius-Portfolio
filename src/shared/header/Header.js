@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
+import { AuthContext } from '../context/AuthProvider';
 
 const Header = () => {
+    const { user } = useContext(AuthContext)
     const menuItem = <>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/login'>Login</Link></li>
         <li><Link to='/about'>About</Link></li>
-        <li><Link to='/register'>Register</Link></li>
+        {/* <li><Link to='/register'>Register</Link></li> */}
+        {
+            user?.email ?
+
+                <li><Link to='/orders'>Orders</Link></li> :
+                <li><Link to='/login'>Login</Link></li>
+        }
     </>
 
     return (
@@ -32,7 +39,9 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a href="/" className="btn">Get started</a>
+                {
+                    user?.email && <button className="btn">Log Out</button>
+                }
             </div>
         </div>
     );

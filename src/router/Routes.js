@@ -3,6 +3,8 @@ import Home from "../pages/homePage/Home/Home";
 import { createBrowserRouter } from "react-router-dom";
 import LogIn from "../pages/singIn/LogIn";
 import Register from "../pages/singIn/Register";
+import CheckOut from "../pages/checkOut/CheckOut";
+import Orders from "../pages/orders/Orders";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +22,15 @@ export const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register />
+            },
+            {
+                path: '/services/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/services/${params.id}`),
+                element: <CheckOut />
+            },
+            {
+                path: '/orders',
+                element: <Orders />
             }
         ]
     }
