@@ -29,5 +29,5 @@ export const services = (user) => {
         body: JSON.stringify(currentUser)
     })
         .then(res => res.json())
-        .then(data => localStorage.setItem(data.token))
+        .then(data => localStorage.setItem("token", data.token))
 }
