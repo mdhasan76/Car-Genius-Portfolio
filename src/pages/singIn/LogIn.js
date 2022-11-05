@@ -23,8 +23,29 @@ const LogIn = () => {
     const handleGoogle = () => {
         googleSignIn()
             .then(res => {
-                console.log(res.user)
-                navigate(from, { replace: true })
+
+                const user = res.user;
+
+
+                const currentUser = {
+                    email: user.email
+                }
+
+                console.log(currentUser)
+                //get user token 
+                fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+
+                        localStorage.setItem("token", data.token)
+                        navigate(from, { replace: true })
+                    })
             })
             .catch(err => {
                 console.log(err)

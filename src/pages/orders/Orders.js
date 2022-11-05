@@ -3,18 +3,27 @@ import { AuthContext } from '../../shared/context/AuthProvider';
 import OrderItem from './OrderItem';
 
 const Orders = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
     // console.log(user)
     const [order, setOrder] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`)
-            .then(res => res.json())
+        fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    localStorage.removeItem('token')
+                    return logOut()
+                }
+                return res.json()
+            })
             .then(data => {
                 setOrder(data)
-                // console.log(data)
             })
-    }, [user?.email])
+    }, [user?.email, logOut])
 
     const handleUpdate = (id) => {
         fetch(`http://localhost:5000/orders/${id}`, {
@@ -36,6 +45,7 @@ const Orders = () => {
                 }
 
             })
+        console.log(order)
     }
     return (
         <div className="overflow-x-auto w-full">
