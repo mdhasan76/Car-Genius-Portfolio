@@ -10,7 +10,7 @@ import { AuthContext } from '../../shared/context/AuthProvider';
 const Register = () => {
     // const createNewUser = useContext(AuthContext);
     const { createNewUser } = useContext(AuthContext);
-    console.log(createNewUser)
+    // console.log(createNewUser)
     const formValue = (e) => {
         e.preventDefault()
         const form = e.target;

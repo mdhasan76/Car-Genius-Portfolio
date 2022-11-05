@@ -5,9 +5,10 @@ import { TfiFacebook } from 'react-icons/tfi';
 import img from '../../assets/images/login/login.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../shared/context/AuthProvider';
+import { services } from '../../utilitis/jwt';
 
 const LogIn = () => {
-    const { googleSignIn } = useContext(AuthContext);
+    const { googleSignIn, logIn } = useContext(AuthContext);
     // console.log(user)
     const location = useLocation();
     const navigate = useNavigate();
@@ -18,34 +19,23 @@ const LogIn = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password)
+        logIn(email, password)
+            .then(res => {
+                console.log(res.user)
+                navigate(from, { replace: true })
+            })
+            .catch(err => console.log(err.message))
     }
+
+
 
     const handleGoogle = () => {
         googleSignIn()
             .then(res => {
 
                 const user = res.user;
+                services(user)
 
-
-                const currentUser = {
-                    email: user.email
-                }
-
-                console.log(currentUser)
-                //get user token 
-                fetch("http://localhost:5000/jwt", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(currentUser)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-
-                        localStorage.setItem("token", data.token)
-                        navigate(from, { replace: true })
-                    })
             })
             .catch(err => {
                 console.log(err)

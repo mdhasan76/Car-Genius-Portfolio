@@ -8,7 +8,7 @@ const Orders = () => {
     const [order, setOrder] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+        fetch(`https://carportfolio.vercel.app/orders?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -26,7 +26,7 @@ const Orders = () => {
     }, [user?.email, logOut])
 
     const handleUpdate = (id) => {
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://carportfolio.vercel.app/orders/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"

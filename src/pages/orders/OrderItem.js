@@ -8,7 +8,7 @@ const OrderItem = ({ data, handleUpdate }) => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/services/${service}`)
+        fetch(`https://carportfolio.vercel.app/services/${service}`)
             .then(res => res.json())
             .then(data => setOrderData(data))
     }, [service])
@@ -24,7 +24,7 @@ const OrderItem = ({ data, handleUpdate }) => {
         const sureDelete = window.confirm("Do You Want to Delete This item?")
         if (sureDelete) {
 
-            fetch(`http://localhost:5000/services/${service}`, {
+            fetch(`https://carportfolio.vercel.app/services/${service}`, {
                 method: "DELETE",
             })
                 .then(res => res.json())
